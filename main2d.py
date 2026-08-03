@@ -8,6 +8,7 @@ l_1 = 1
 l_2 = 1 
 fixed = np.array([0,0])
 a =  0.1 
+l_a = 0.05 
 
 def plotAngle(angles): 
     x1 = l_1 * ma.cos(angles[0]) 
@@ -17,7 +18,7 @@ def plotAngle(angles):
     return x1,y1,x2,y2
 
 def main():
-    jointAngles = np.array([0.1,0.1], dtype=float)
+    jointAngles = np.array([0.1,ma.pi/2], dtype=float)
     target = np.array([0,1.5])
 
     fig, ax = plt.subplots(figsize=(6,6))
@@ -48,8 +49,8 @@ def main():
             [-(l_1*ma.sin(jointAngles[0])) -(l_2*ma.sin(jointAngles[0] + jointAngles[1])), -(l_2*ma.sin(jointAngles[0]+ jointAngles[1]))],
             [(l_1 * ma.cos(jointAngles[0])) + (l_2 * ma.cos(jointAngles[0] + jointAngles[1])),(l_2*ma.cos(jointAngles[0]+ jointAngles[1]))]
         ])
-        j_pinv = np.linalg.pinv(j)     
-        jointAngles += j_pinv @ (a*err) 
+        j_pinv = np.linalg.pinv(j)    
+        jointAngles += (j.T @ np.linalg.inv(j @ j.T + (l_a**2) * np.identity(2))) @ (a * err)
         x_3, y_3, x_4, y_4 = plotAngle(jointAngles)
         arm.set_data([0,x_3, x_4], [0,y_3,y_4]) 
         ax.set_title(f"step: {frame} err: {np.linalg.norm(err):.4f}")
