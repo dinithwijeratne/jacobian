@@ -49,7 +49,6 @@ def main():
             [-(l_1*ma.sin(jointAngles[0])) -(l_2*ma.sin(jointAngles[0] + jointAngles[1])), -(l_2*ma.sin(jointAngles[0]+ jointAngles[1]))],
             [(l_1 * ma.cos(jointAngles[0])) + (l_2 * ma.cos(jointAngles[0] + jointAngles[1])),(l_2*ma.cos(jointAngles[0]+ jointAngles[1]))]
         ])
-        j_pinv = np.linalg.pinv(j)    
         jointAngles += (j.T @ np.linalg.inv(j @ j.T + (l_a**2) * np.identity(2))) @ (a * err)
         x_3, y_3, x_4, y_4 = plotAngle(jointAngles)
         arm.set_data([0,x_3, x_4], [0,y_3,y_4]) 
