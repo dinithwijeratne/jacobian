@@ -43,7 +43,6 @@ def main():
     x_s1, y_s1, x_s2, y_s2 = plotAngle(jointAngles)
     arm.set_data([0, x_s1, x_s2], [0, y_s1, y_s2])
 
-    ax.set_title("Press Start, then hold WASD to move target")
 
     keys = set()
     step = 0.05
@@ -62,7 +61,6 @@ def main():
     def update(frame):
         nonlocal jointAngles
 
-        # Move target while keys are held
         if 'i' in keys:
             target[1] += step
         if 'k' in keys:
@@ -109,7 +107,7 @@ def main():
         fig.canvas.draw_idle()
 
     button_ax = fig.add_axes([0.4, 0.03, 0.2, 0.06])
-    button = Button(button_ax, "Start")
+    button = Button(button_ax, "Button")
     button.on_clicked(start)
 
     plt.show()
