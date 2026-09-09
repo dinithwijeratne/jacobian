@@ -114,8 +114,6 @@ def main():
         ax.set_title(f"step: {frame} err: {errNorm:.4f}")
         return (arm,)
 
-    # The animation is only built once Start is clicked, so the figure sits on
-    # the initial pose until then
     ani = None
 
     def start(event):
