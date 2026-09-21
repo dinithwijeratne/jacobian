@@ -65,13 +65,13 @@ def main():
 
         nonlocal jointAngles, target
 
-        if 'i' in keys:
+        if '1' in keys:
             target[1] += step
-        if 'k' in keys:
+        if '2' in keys:
             target[1] -= step
-        if 'j' in keys:
+        if '3' in keys:
             target[0] -= step
-        if 'l' in keys:
+        if '4' in keys:
             target[0] += step
 
         target_plot.set_data([target[0]], [target[1]])
