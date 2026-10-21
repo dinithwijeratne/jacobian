@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from matplotlib.widgets import Button
 import math as ma
-
+import matplotlib as mpl 
 l_1 = 1
 l_2 = 1
 fixed = np.array([0.0, 0.0])
 
-a = 0.1
+a = 0.05
 l_a = 0.05
 
 
@@ -23,6 +23,9 @@ def plotAngle(angles):
 
 
 def main():
+    for key in mpl.rcParams:
+        if key.startswith('keymap.'):
+            mpl.rcParams[key] = []
     jointAngles = np.array([0.1, ma.pi / 2], dtype=float)
     target = np.array([0.0, 1.5], dtype=float)
 
@@ -60,13 +63,13 @@ def main():
     def update(frame):
         nonlocal jointAngles
 
-        if 'i' in keys:
+        if 'w' in keys:
             target[1] += step
-        if 'k' in keys:
+        if 's' in keys:
             target[1] -= step
-        if 'j' in keys:
+        if 'a' in keys:
             target[0] -= step
-        if 'l' in keys:
+        if 'd' in keys:
             target[0] += step
 
         target_plot.set_data([target[0]], [target[1]])
